@@ -1,3 +1,7 @@
+/**
+ *@author Danyang 
+ */
+
 package org.tbi.server.entity;
 
 import org.springframework.data.annotation.Id;
