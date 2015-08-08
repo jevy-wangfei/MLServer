@@ -11,4 +11,5 @@ import org.tbi.server.entity.User;
 
 public interface Dao extends MongoRepository<User,String>{
 	List<User> findByName(String name);
+	User findOneByName(String name);
 }
