@@ -1,6 +1,3 @@
-/**
- *@author Danyang 
- */
 
 package org.tbi.server.entity;
 
