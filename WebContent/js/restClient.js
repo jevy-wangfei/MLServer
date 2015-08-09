@@ -1,10 +1,5 @@
 var storage = window.sessionStorage;
 
-var TEST_SUITE_PATH = "/testsuites";
-var TEST_CASE_PATH = "/testcases";
-var TEST_RESULT_PATH = "/testresults";
-var TEST_JOB_PATH = "/testjobs";
-
 var USER_PATH = "/users";
 var DEVICE_PATH = "/devices";
 var SIGNIN_PATH = "/users/signin";
@@ -42,9 +37,32 @@ function rest(restUrl, httpMethod, entity, contentType, dataType, callback) {
     resultLine.html(LOADING);
     var userId = storage.getItem("userId");
     var userRole = storage.getItem("userRole");
-    var request = jQuery.ajax({type: httpMethod, url: restUrl, headers: {'Atup-User': userId, 'Atup-UserRole': userRole}, data: entity, contentType: contentType, dataType: dataType,
-        crossDomain: true});//'Access-Control-Allow-Origin': '*',
-    request.done(function (data) {
+    //var request = jQuery.ajax({type: httpMethod, url: restUrl,data:{},contentType: contentType, dataType: dataType,});//'Access-Control-Allow-Origin': '*',
+    $.ajax({type:"GET",url:restUrl,data:{}, dataType: dataType,
+    	 success:function(data){
+    		 try {
+    			 alert("befor first if")
+    			 if (data === null || data === undefined) {
+    				 alert("in first if")
+    				 resultLine.html(NO_RESULT);
+    			 } else if (data.statusCode && data.statusCode != NORMAL_STATUS) {
+    				 alert("in second if")
+    				 resultLine.html("Error:" + data.errorInfo);
+    			 } else if (callback != null) {
+    				 alert("in last if line 1")
+    				 resultLine.html("");
+    				 alert("in last if line 2")
+    				 callback(data);
+    			 }
+    		 } catch (e) {
+    			 alert("in catch")
+    			 resultLine.html(e);
+    		 }},
+    	error:function(err){
+    	//todo
+    	}
+    	}); 
+    /*request.done(function (data) {
         try {
             if (data === null || data === undefined) {
                 resultLine.html(NO_RESULT);
@@ -61,7 +79,7 @@ function rest(restUrl, httpMethod, entity, contentType, dataType, callback) {
     request.fail(function (textStatus, errorThrown) {
         resultLine.html(errorThrown + " status=" + textStatus.status + " text=" + textStatus.statusText);
     });
-    resultLine.append(" DONE!");
+    resultLine.append(" DONE!");*/
 }
 
 function checkSignIn() {
