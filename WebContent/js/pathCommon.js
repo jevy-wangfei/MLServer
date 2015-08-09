@@ -3,7 +3,7 @@ var TBIS_USER_HOST = "http://localhost:8080/";
 
 
 
-var TBIS_USER_BASE_URI = 'MLServer-0.0.1-SNAPSHOT';
+var TBIS_USER_BASE_URI = 'MLServer';
 
 
 
